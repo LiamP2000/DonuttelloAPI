@@ -9,7 +9,7 @@ var usersRouter = require('./routes/users');
 var donutsRouter = require('./routes/donuts');
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/dev5lab5');
+mongoose.connect('mongodb://localhost:27017/donuttello');
 
 var app = express();
 
