@@ -6,6 +6,10 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var donutsRouter = require('./routes/donuts');
+
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/donuttello');
 
 var app = express();
 
@@ -21,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/donuts', donutsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
