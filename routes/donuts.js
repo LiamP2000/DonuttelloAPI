@@ -1,5 +1,11 @@
 var express = require('express');
 var router = express.Router();
-const Donut = require("../models/donut");
+const donutController = require('../controllers/donuts.js');
+
+/* create a new donut */
+router.post('/', donutController);
+
+/* delete a donut */
+router.delete('/:id', donutController);
 
 
