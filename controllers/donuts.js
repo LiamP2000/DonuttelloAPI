@@ -2,7 +2,7 @@
 const Donut = require("../models/donut.js");
 
 /* POST /donuts: maak een nieuwe donut aan */
-router.post('/', async function(req, res) {
+async function create(req, res) {
     // nieuw donut object maken
     let donut = new Donut(); 
 
@@ -11,7 +11,11 @@ router.post('/', async function(req, res) {
     donut.clientEmail = req.body.clientEmail;
     donut.topping = req.body.topping;
     donut.sprinkles = req.body.sprinkles;
-    donut.logo = req.body.logo;    
+    donut.logo = req.body.logo;   
+    donut.amount = req.body.amount;   
+    donut.creationDate = req.body.creationDate;   
+    donut.dueDate = req.body.dueDate;   
+    donut.description = req.body.description;   
 
     // donut en gegevens opslaan
     try {
@@ -28,17 +32,27 @@ router.post('/', async function(req, res) {
         }
         res.json(response);
     }
-});
+}
 
 /* DELETE /donuts/{id}: delete een donut */
-router.delete('/:id', async function(req, res) {
+async function deleteById(req, res) {
     let donutId = req.params.id;
-    let result = await Donut.deleteOne({ _id: donutId });
-    let response = {
-        status : "success",
-        data: result
+    try {
+        let result = await Donut.deleteOne({ _id: donutId });
+        let response = {
+            status : "success",
+            data: result
+        }
+        res.json(response);    
+    }catch(err){
+        res.json({
+            status: "error",
+            error: err.message
+        })
     }
-    res.json(response);
-});
+};
 
-module.exports = router;
+module.exports = {
+    create,
+    deleteById
+}
