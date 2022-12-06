@@ -8,4 +8,5 @@ router.post('/', donutController.create);
 /* delete a donut */
 router.delete('/:id', donutController.deleteById);
 
+module.exports = router
 
