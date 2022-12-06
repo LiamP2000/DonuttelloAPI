@@ -9,7 +9,7 @@ const donutSchema = new Schema({
   sprinkles: { type: String, required: true },
   logo: { type: String, required: true },
   amount: { type: Number, required: true },
-  creationDate: { type: Date, default: new Date },
+  creationDate: { type: Date, default: Date.now },
   dueDate: { type: Date, required: true },
   description: { type: String, required: true },
 });

@@ -13,7 +13,6 @@ async function create(req, res) {
     donut.sprinkles = req.body.sprinkles;
     donut.logo = req.body.logo;   
     donut.amount = req.body.amount;   
-    donut.creationDate = req.body.creationDate;   
     donut.dueDate = req.body.dueDate;   
     donut.description = req.body.description;   
 
