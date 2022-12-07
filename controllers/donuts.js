@@ -70,9 +70,28 @@ async function getAll(req, res) {
     });
 }
 
+/* GET /donuts/{id}: geef een specifieke donut terug */
+async function getById(req, res) {
+    let donutId = req.params.id;
+    console.log(donutId);
+    try {
+        let donut = await Donut.findById({ _id: donutId });
+        let response = {
+            status: "success",
+            data: donut
+        }
+        res.json(response);
+    }catch(err){
+        res.json({
+            status: "error",
+            error: err.message
+        })
+    }
+}
 
 module.exports = {
     create,
     deleteById,
-    getAll
+    getAll,
+    getById
 }
