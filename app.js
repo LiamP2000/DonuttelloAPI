@@ -10,7 +10,7 @@ var donutsRouter = require('./routes/donuts');
 const config = require('config');
 
 var mongoose = require('mongoose');
-mongoose.connect(config.get('Database.conn'));
+mongoose.connect(process.env.dbconn || config.get('Database.conn'));
 
 console.log(config.get('Database.conn'));
 
