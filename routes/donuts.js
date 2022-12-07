@@ -14,6 +14,10 @@ router.get('/', donutController.getAll);
 /* get a specific donut */
 router.get('/:id', donutController.getById);
 
+/* update a donut */
+router.put('/:id', donutController.updateById);
+
+
 
 module.exports = router
 
