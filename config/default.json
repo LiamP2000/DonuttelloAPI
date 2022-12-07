@@ -1,0 +1,5 @@
+{
+    "Database": {
+        "conn": "mongodb+srv://donuttello-admin:ge2DOiCeCKjlPf2w@cluster0.1itmegc.mongodb.net/?retryWrites=true&w=majority"
+    }
+}
