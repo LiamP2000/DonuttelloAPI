@@ -7,9 +7,12 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var donutsRouter = require('./routes/donuts');
+const config = require('config');
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/donuttello');
+mongoose.connect(config.get('Database.conn'));
+
+console.log(config.get('Database.conn'));
 
 var app = express();
 
