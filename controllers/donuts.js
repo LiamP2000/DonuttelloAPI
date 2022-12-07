@@ -73,7 +73,6 @@ async function getAll(req, res) {
 /* GET /donuts/{id}: geef een specifieke donut terug */
 async function getById(req, res) {
     let donutId = req.params.id;
-    console.log(donutId);
     try {
         let donut = await Donut.findById({ _id: donutId });
         let response = {
@@ -89,9 +88,44 @@ async function getById(req, res) {
     }
 }
 
+/* PUT /donuts/{id}: update een specifieke donut */
+async function updateById(req, res) {
+    let donutId = req.params.id;
+    try {
+        let donutU = await Donut.findById({ _id: donutId });
+
+        donutU.clientName = req.body.clientName;
+        donutU.clientEmail = req.body.clientEmail;
+        donutU.topping = req.body.topping;
+        donutU.sprinkles = req.body.sprinkles;
+        donutU.logo = req.body.logo;
+        donutU.amount = req.body.amount;
+        donutU.dueDate = req.body.dueDate;
+        donutU.description = req.body.description;
+        
+        let savedDonut = await donutU.save()
+        let response = {
+            status: "success",
+            data: savedDonut
+        }
+        res.json(response)
+    }catch(err){
+        let response = {
+            status : "error",
+            message : "Error creating donut: " + err.message
+        }
+        res.json(response);
+    }
+}
+
+
+
+
+
 module.exports = {
     create,
     deleteById,
     getAll,
-    getById
+    getById,
+    updateById
 }
