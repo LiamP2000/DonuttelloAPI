@@ -51,7 +51,28 @@ async function deleteById(req, res) {
     }
 };
 
+/* GET /donuts: geef alle donuts terug */
+async function getAll(req, res) {
+    Donut.find({}, (err, donuts) => {
+        try {
+            let response = {
+                status: "success",
+                data: donuts
+            }
+            res.json(response);
+        }catch(err){
+            res.json({
+                status: "error",
+                error: err.message
+            })
+        }
+    
+    });
+}
+
+
 module.exports = {
     create,
-    deleteById
+    deleteById,
+    getAll
 }
