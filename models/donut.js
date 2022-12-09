@@ -12,6 +12,7 @@ const donutSchema = new Schema({
   creationDate: { type: Date, default: Date.now },
   dueDate: { type: Date, required: true },
   description: { type: String, required: true },
+  done: { type: Boolean, default: false },
 });
 
 const Donut = mongoose.model('Donut', donutSchema);

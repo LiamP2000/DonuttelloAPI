@@ -102,6 +102,7 @@ async function updateById(req, res) {
         donutU.amount = req.body.amount;
         donutU.dueDate = req.body.dueDate;
         donutU.description = req.body.description;
+        donutU.done = req.body.done;
         
         let savedDonut = await donutU.save()
         let response = {

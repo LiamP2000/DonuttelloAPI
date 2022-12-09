@@ -1,0 +1,10 @@
+:root{
+  --primary-pink: #E72C70;  
+  --primary-yellow: #F7F249;
+  --primary-blue: #82D1E4;
+  --neutral: white;
+}
+
+body{
+  background-color: var(--primary-yellow);
+}
