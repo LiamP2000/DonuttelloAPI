@@ -1,16 +1,46 @@
 <script>
 export default {
   props: ['donut'],
+  methods: {
+	async updateDonut(event) {
+		if(this.donut.done == true){
+			this.donut.done = false
+		}else{
+			this.donut.done = true
+		}
+
+		await fetch('http://localhost:3000/donuts/' + this.donut._id, {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(this.donut)
+		})
+
+		this.$forceUpdate();
+	},
+	async deleteDonut(event) {
+		await fetch('http://localhost:3000/donuts/' + this.donut._id, {
+			method: "DELETE"
+		})
+
+		location.reload()
+	}
+  },
   created() {
 	let newDueDate = new Date(this.donut.dueDate)
-	newDueDate = newDueDate.toLocaleDateString()
-
-	this.donut.dueDate = newDueDate
+	this.newDueDate = newDueDate.toLocaleDateString()
 
 	let newCreationDate = new Date(this.donut.creationDate)
-	newCreationDate = newCreationDate.toLocaleDateString()
+	this.newCreationDate = newCreationDate.toLocaleDateString()
 
-	this.donut.creationDate = newCreationDate
+	if(this.donut.done) {
+		this.done = "Yes"
+		this.doneBtn = "Mark TODO"
+	}else{
+		this.done = "No"
+		this.doneBtn = "Mark done"
+	}
   }
 }
 </script>
@@ -34,8 +64,8 @@ export default {
 	
 		<div class="card">
 			<div class="card__amount">
-				<p class="card__title">Amount:</p>
-				<p class="card__amountNumber">{{ donut.amount }}</p>
+				<p><span class="card__title">Amount: </span>{{ donut.amount }}</p>
+				<p><span class="card__title">Done: </span>{{ done }} </p>
 			</div>
 			<div class="card__donut">
 				<img class="card__img" src="/src/assets/donut.png" alt="">
@@ -46,7 +76,7 @@ export default {
 			</div>
 			<div class="card__creationdate">
 				<p class="card__title">Creation date:</p>
-				<p class="card__input">{{ donut.creationDate }}</p>
+				<p class="card__input">{{ newCreationDate }}</p>
 			</div>
 			<div class="card__email">
 				<p class="card__title">E-mail:</p>
@@ -54,7 +84,7 @@ export default {
 			</div>
 			<div class="card__duedate">
 				<p class="card__title">Due date:</p>
-				<p class="card__input">{{ donut.dueDate }}</p>
+				<p class="card__input">{{ newDueDate }}</p>
 			</div>
 			<div class="card__company">{{ donut.clientName }}</div>
 			<div class="card__creationdate"></div>
@@ -63,6 +93,8 @@ export default {
 				<p><span class="card__title">Sprinkles: </span>{{ donut.sprinkles }}</p>
 				<p><span class="card__title">Logo: </span>{{ donut.logo }}</p>
 			</div>
+			<button class="card__btn card__done" @click="updateDonut">{{ doneBtn }}</button>
+			<button class="card__btn card__delete" @click="deleteDonut">Delete</button>
 		</div>
   
 </template>
@@ -93,13 +125,30 @@ export default {
 	box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.2),
 		0 1px 15px 0 rgba(0, 0, 0, 0.19);
 }
+.card__btn {
+    border: none;
+    border-radius: 40px;
+    height: 1.6rem;
+}
+
+.card__done {
+	grid-area: 7 / 1 / 7 / 1;
+	color: white;
+    background-color: #82D1E4;
+}
+
+.card__delete {
+	grid-area: 7 / 3 / 7 / 3;
+	background-color: red;
+	background-color: #F7F249;
+    color: #E72C70;
+}
 
 .card {
   display: grid; 
   grid-template-columns: 0.5fr 0.5fr 0.5fr; 
-  grid-template-rows: 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr; 
+  grid-template-rows: 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr; 
   gap: 0px 0px; 
-  
 }
 
 .card__company { 
@@ -123,7 +172,13 @@ export default {
 	grid-area: 5 / 1 / 6 / 4;
 	
  }
-.card__amount { grid-area: 4 / 3 / 5 / 4; }
+.card__amount {
+	grid-area: 4 / 3 / 5 / 4;
+}
+
+.card__amount > p {
+	float: left;
+}
 
 .card__amountNumber { 
 	text-align: left;

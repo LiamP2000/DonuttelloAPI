@@ -103,7 +103,7 @@ async function updateById(req, res) {
         donutU.dueDate = req.body.dueDate;
         donutU.description = req.body.description;
         donutU.done = req.body.done;
-        
+
         let savedDonut = await donutU.save()
         let response = {
             status: "success",
