@@ -119,10 +119,6 @@ async function updateById(req, res) {
     }
 }
 
-
-
-
-
 module.exports = {
     create,
     deleteById,
