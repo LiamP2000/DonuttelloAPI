@@ -26,8 +26,8 @@ async function create(req, res) {
         res.json(response)
     }catch(err){
         let response = {
-            status : "error",
-            message : "Error creating donut: " + err.message
+            status: "error",
+            message: "Error creating donut: " + err.message
         }
         res.json(response);
     }
