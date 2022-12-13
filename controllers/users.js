@@ -4,8 +4,8 @@ const jwtPassword = config.get('jwtPassword')
 
 let registeredUsers = [
     {
-      username: "Bob",
-      password: "123",
+      username: "test@student.thomasmore.be",
+      password: "123456",
       isAdmin: true,
     },
     {
