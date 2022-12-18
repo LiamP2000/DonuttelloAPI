@@ -8,9 +8,12 @@ function adminOnlyMw(req, res, next) {
     try {
         // Check if JWT token is valid
         let decodedUser = jwt.verify(jwtToken, jwtPassword);
-
+        
         // Check if user is admin
         if(decodedUser.isAdmin === true){
+            // Set user in request object so we can use it
+            // in routes that uses this middleware
+            req.user = decodedUser
             // Continue with request (e.g. delete or update)
             next()
         }else{
